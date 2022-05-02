@@ -15,6 +15,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @vehicles=@person.vehicles.build
   end
 
   # GET /people/1/edit
@@ -24,15 +25,10 @@ class PeopleController < ApplicationController
   # POST /people or /people.json
   def create
     @person = Person.new(person_params)
-
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to person_url(@person), notice: "Person was successfully created." }
-        format.json { render :show, status: :created, location: @person }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @person.save
+      redirect_to person_path(@person)
+    else
+      render action: :new
     end
   end
 
@@ -67,6 +63,6 @@ class PeopleController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_params
-      params.require(:person).permit(:name, :contact_number, :city, :address, vehicles_attributes: [:id,:owner_name, :vehicle_number, :_destroy])
+      params.require(:person).permit(:name, :contact_number, :city, :address, :vehicle_photo, vehicles_attributes: [:id,:owner_name, :vehicle_number, :image, :_destroy])
     end
 end

@@ -5,4 +5,10 @@
     <%= f.label "owner name" %>
     <%= f.text_field :owner_name%>
     <%= link_to_remove_association "Delete", f %>
+
+    <div>
+      <%= f.label :image, style: "display: block" %>
+      <%= f.file_field :image %>
+    </div>
+  
   </div>

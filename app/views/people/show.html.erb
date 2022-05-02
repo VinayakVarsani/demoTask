@@ -2,9 +2,17 @@
 
 <%= render @person %>
 
+
 <div>
   <%= link_to "Edit this person", edit_person_path(@person) %> |
   <%= link_to "Back to people", people_path %>
+  
+  <h1>Vehicles Photos</h1>
+  <% @person.vehicles.each do |vehicle| %>
+  <%= vehicle.owner_name%>
+  <%= vehicle.vehicle_number%>
+  <%= image_tag vehicle.image%>
+  <%end%>
 
   <%= button_to "Destroy this person", @person, method: :delete %>
 </div>
